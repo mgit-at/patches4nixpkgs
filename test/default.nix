@@ -2,7 +2,7 @@ let
   flake = builtins.getFlake (builtins.toString ../.);
   patched = flake.patch <nixpkgs> [
     {
-      patches4nixpkgs = [
+      patches4nixpkgs = nixpkgs: [
         [true ./test.patch]
         [false ./test.patch]
       ];

@@ -10,7 +10,7 @@
 
       collectPatchesFromSource = source:
         builtins.map (el: lib.elemAt el 1)
-          (lib.filter (el: lib.elemAt el 0) (source.patches4nixpkgs));
+          (lib.filter (el: lib.elemAt el 0) (source.patches4nixpkgs nixpkgs));
 
       collectPatches = sources:
         lib.concatMap (collectPatchesFromSource)
