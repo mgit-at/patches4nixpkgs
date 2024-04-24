@@ -4,17 +4,17 @@
   outputs = { self }: {
 
     patch = nixpkgs: patchSources: let
-      lib = nixpkgs.lib;
+      lib = if nixpkgs ? lib then nixpkgs.lib
+        else import "${nixpkgs}/lib";
       origPkgs = import "${nixpkgs}" { system = "x86_64-linux"; };
 
       collectPatchesFromSource = source:
-        lib.map (el: lib.elemAt 1 el)
+        builtins.map (el: lib.elemAt el 1)
           (lib.filter (el: lib.elemAt el 0) (source.patches4nixpkgs));
 
       collectPatches = sources:
-        lib.concatLists
-          (lib.map (collectPatchesFromSource)
-            (lib.filter (source: source ? "patches4nixpkgs") sources));
+        lib.concatMap (collectPatchesFromSource)
+          (lib.filter (source: source ? "patches4nixpkgs") sources);
 
       patches = collectPatches patchSources;
     in origPkgs.stdenvNoCC.mkDerivation {

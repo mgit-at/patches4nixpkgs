@@ -8,7 +8,18 @@ let
       ];
     }
   ];
+
+  nixpkgs = import <nixpkgs> {};
 in
-{
-  out = builtins.pathExists "${patched}/test-file";
+nixpkgs.stdenv.mkDerivation {
+  name = "test-patches4nixpkgs";
+
+  src = "${patched}";
+
+  dontBuild = true;
+
+  installPhase = ''
+    cat test-file # file should be created by patch
+    touch $out # fix derivation build
+  '';
 }
