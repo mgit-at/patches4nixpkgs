@@ -38,7 +38,7 @@ Then patch nixpkgs
       other-flake
       self
     ];
-    nixpkgs = patches4nixpkgs.eval patchPkgs;
+    nixpkgs = patches4nixpkgs.eval patchPkgs; # evaluate flake.nix like it wasn't patched
   in
   {
     ...
@@ -46,4 +46,4 @@ Then patch nixpkgs
 }
 ```
 
-NOTE: `import "${nixpkgs}"` no longer works when using patched version, use `import nixpkgs.outPath`
+NOTE: `import "${nixpkgs}"` no longer works when using .eval, use `import nixpkgs.outPath`
