@@ -33,7 +33,7 @@
       };
 
     eval = patchPkgs: let
-      self = patchPkgs // { outPath = patchPkgs; } // ((import "${patchPkgs}/flake.nix").outputs { inherit self; });
+      self = patchPkgs // ((import "${patchPkgs}/flake.nix").outputs { inherit self; });
     in
       self;
   };
