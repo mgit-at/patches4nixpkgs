@@ -1,6 +1,6 @@
 # patches4nixpkgs
 
-patches4nixpkgs is a small flake that allows adding patches to nixpkgs
+a small flake that allows adding patches to nixpkgs conditionally
 
 Usage:
 

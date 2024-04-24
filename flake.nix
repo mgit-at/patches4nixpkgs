@@ -1,5 +1,5 @@
 {
-  description = "small flake that allows adding patches to nixpkgs";
+  description = "a small flake that allows adding patches to nixpkgs conditionally";
 
   outputs = { self }: {
 
