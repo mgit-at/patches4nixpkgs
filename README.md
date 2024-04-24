@@ -45,5 +45,3 @@ Then patch nixpkgs
   };
 }
 ```
-
-NOTE: `import "${nixpkgs}"` no longer works when using .eval, use `import nixpkgs.outPath`
