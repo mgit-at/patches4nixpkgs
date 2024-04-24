@@ -9,9 +9,9 @@ let
     }
   ];
 
-  nixpkgs = import <nixpkgs> {};
+  nixpkgs = flake.eval patched;
 in
-nixpkgs.stdenv.mkDerivation {
+nixpkgs.legacyPackages.${builtins.currentSystem}.stdenv.mkDerivation {
   name = "test-patches4nixpkgs";
 
   src = "${patched}";

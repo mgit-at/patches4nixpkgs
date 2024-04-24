@@ -26,15 +26,24 @@ e.g.:
 
 Then patch nixpkgs
 
-```
-let
-  patchedpkgs = patches4nixpkgs.patch nixpkgs [
-    flake
-    other-flake
-    self
-  ];
-in
+```nix
 {
-  ...
+  inputs.nixpkgs...
+
+  outputs = { self, flake, other-flake, ... }@inputs: {
+
+  let
+    patchPkgs = patches4nixpkgs.patch inputs.nixpkgs [
+      flake
+      other-flake
+      self
+    ];
+    nixpkgs = patches4nixpkgs.eval patchPkgs;
+  in
+  {
+    ...
+  };
 }
 ```
+
+NOTE: `import "${nixpkgs}"` no longer works when using patched version, use `import nixpkgs.outPath`

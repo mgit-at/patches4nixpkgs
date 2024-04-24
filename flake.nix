@@ -31,5 +31,10 @@
           cp -r . $out
         '';
       };
+
+    eval = patchPkgs: let
+      self = {} // { outPath = patchPkgs; } // ((import "${patchPkgs}/flake.nix").outputs { inherit self; });
+    in
+      self;
   };
 }
